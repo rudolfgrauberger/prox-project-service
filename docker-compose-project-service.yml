@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  project-service:
+    image: ptb.archi-lab.io/project-service
+    ports:
+      - "9002:9002"
+    restart: always
+    networks:
+      - ptb
+
+networks:
+  ptb:
+    external: true
