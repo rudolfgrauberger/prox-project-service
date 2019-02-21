@@ -8,7 +8,7 @@ public interface ProjectRepository extends PagingAndSortingRepository<Project, U
 
     Set<Project> findByStatus(ProjectStatus status);
 
-    Set<Project> findByNameContaining(String name);
+    Set<Project> findByNameContaining(ProjectName name);
 
-    Set<Project> findByStatusAndNameContaining(ProjectStatus status, String name);
+    Set<Project> findByStatusAndNameContaining(ProjectStatus status, ProjectName name);
 }
