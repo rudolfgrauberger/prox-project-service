@@ -6,5 +6,5 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface ProjectRepository extends PagingAndSortingRepository<Project, UUID> {
 
-    Set<Project> findByStatus(ProjectStatus status);
+  Set<Project> findByStatus(ProjectStatus status);
 }
