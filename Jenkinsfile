@@ -5,7 +5,7 @@ pipeline {
         jdk "JDK_8u191"
     }
     environment {
-        REPOSITORY = "ptb.archi-lab.io"
+        REPOSITORY = "ptb-gp-ss2019.archi-lab.io"
         IMAGE = "project-service"
     }
     stages {
@@ -32,7 +32,7 @@ pipeline {
         }
         stage("Deploy") {
             environment {
-                SERVERPORT = "22412"
+                SERVERPORT = "22413"
                 YMLFILENAME = "docker-compose-project-service.yml"
                 SSHUSER = "jenkins"
                 SERVERNAME = "fsygs15.inf.fh-koeln.de"
