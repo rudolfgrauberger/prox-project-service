@@ -10,7 +10,7 @@ import lombok.Setter;
 
 @MappedSuperclass
 @Data
-@Setter(AccessLevel.NONE)
+@Setter // (AccessLevel.NONE)
 public class AbstractEntity {
 
   @Id
