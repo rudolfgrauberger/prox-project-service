@@ -81,6 +81,12 @@ class KeyCon extends KeycloakWebSecurityConfigurerAdapter
 		.antMatchers("/projects*").hasRole("Dozent")
 		.antMatchers("/projects/*").hasRole("Dozent")
 		.antMatchers("/projects/**").hasRole("Dozent")
+		.antMatchers(HttpMethod.GET,"/modules*").permitAll()
+	    .antMatchers(HttpMethod.GET,"/modules/*").permitAll()
+	    .antMatchers(HttpMethod.GET,"/modules/**").permitAll()
+		.antMatchers("/modules*").hasRole("Dozent")
+		.antMatchers("/modules/*").hasRole("Dozent")
+		.antMatchers("/modules/**").hasRole("Dozent")
         .anyRequest().permitAll();
 	}
 	
