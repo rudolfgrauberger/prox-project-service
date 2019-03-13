@@ -10,12 +10,16 @@ import java.io.Serializable;
 @Setter
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ModuleID implements Serializable {
+public class ExternalModuleID implements Serializable {
 
     private String selfRef;
 
 
-    public ModuleID(String selfRef) {
+    public ExternalModuleID(String selfRef) {
         this.selfRef = selfRef;
+    }
+
+    public String toString() {
+        return selfRef;
     }
 }

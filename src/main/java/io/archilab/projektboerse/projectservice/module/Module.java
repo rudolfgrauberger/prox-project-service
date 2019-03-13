@@ -6,17 +6,15 @@ import io.archilab.projektboerse.projectservice.core.AbstractEntity;
 import lombok.*;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import java.util.UUID;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Module {
+public class Module extends AbstractEntity {
 
-  @Id
-  private ModuleID moduleID;
+  @JsonIgnore
+  private ExternalModuleID externalModuleID;
 
   @JsonUnwrapped
   private ModuleName name;

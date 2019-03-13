@@ -26,8 +26,17 @@ public class ModuleService {
 
         Collection<Module> modules = moduleClient.getModules();
         for (Module module : modules) {
-            this.moduleRepository.save(module);
-            logger.info("Imported Module: " + module.getModuleID());
+            Optional<Module> existingModuleOptional = this.moduleRepository.findByExternalModuleID(module.getExternalModuleID());
+            if (existingModuleOptional.isPresent()) {
+                logger.info("Module with ID " + module.getExternalModuleID() + " already exists.");
+                Module existingModule = existingModuleOptional.get();
+                existingModule.setName(module.getName());
+                this.moduleRepository.save(existingModule);
+            } else {
+                logger.info("Module with ID " + module.getExternalModuleID() + " does not exist yet.");
+                this.moduleRepository.save(module);
+            }
+            logger.info("Imported Module: " + module.getExternalModuleID());
         }
 
         logger.info("Finished importing " + modules.size() + " modules");

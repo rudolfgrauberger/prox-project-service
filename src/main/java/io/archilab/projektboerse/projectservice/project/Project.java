@@ -2,12 +2,20 @@ package io.archilab.projektboerse.projectservice.project;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import io.archilab.projektboerse.projectservice.core.AbstractEntity;
+import io.archilab.projektboerse.projectservice.module.Module;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -25,6 +33,10 @@ public class Project extends AbstractEntity {
 
   @Setter
   private ProjectStatus status;
+
+  @ManyToMany
+  private List<Module> modules = new ArrayList<>();
+
 
   public Project(ProjectName name, ProjectDescription description, ProjectStatus status) {
     this.name = name;

@@ -1,19 +1,15 @@
 package io.archilab.projektboerse.projectservice.module;
 
-import com.thoughtworks.xstream.converters.basic.UUIDConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.hateoas.Link;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.hateoas.PagedResources;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.client.Traverson;
 import org.springframework.hateoas.mvc.TypeReferences;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 
-import java.net.ConnectException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.*;
@@ -65,7 +61,7 @@ public class ModuleClient {
 
         for (Resource<Module> moduleResource : pagedModuleResources.getContent()) {
           Module module = moduleResource.getContent();
-          module.setModuleID(new ModuleID(moduleResource.getId().getHref()));
+          module.setExternalModuleID(new ExternalModuleID(moduleResource.getId().getHref()));
           modules.add(module);
         }
       }
