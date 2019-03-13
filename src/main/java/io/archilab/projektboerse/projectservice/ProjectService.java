@@ -1,13 +1,19 @@
 package io.archilab.projektboerse.projectservice;
 
+import io.archilab.projektboerse.projectservice.module.ModuleService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootApplication
+@EnableFeignClients
 public class ProjectService {
 
   public static void main(String[] args) {
-    SpringApplication.run(ProjectService.class, args);
+    ConfigurableApplicationContext context = SpringApplication.run(ProjectService.class, args);
+
+    context.getBean(ModuleService.class).importModules();
   }
 
 }
