@@ -6,6 +6,8 @@ import io.archilab.projektboerse.projectservice.core.AbstractEntity;
 import io.archilab.projektboerse.projectservice.module.Module;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
+
 import java.util.UUID;
 
 import javax.persistence.Basic;
@@ -48,6 +50,7 @@ public class Project extends AbstractEntity {
   
   @Basic
   @Temporal(TemporalType.TIMESTAMP)
+  @Column(updatable=false)
   @CreationTimestamp
   private java.util.Date created;
 
