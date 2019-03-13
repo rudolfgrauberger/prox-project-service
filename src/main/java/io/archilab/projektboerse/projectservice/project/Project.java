@@ -54,7 +54,7 @@ public class Project extends AbstractEntity {
   
   @Basic
   @Temporal(TemporalType.TIMESTAMP)
-  @CreationTimestamp
+//  @CreationTimestamp
   @UpdateTimestamp
   private java.util.Date modified;
 
