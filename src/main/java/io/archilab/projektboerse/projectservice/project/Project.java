@@ -3,6 +3,9 @@ package io.archilab.projektboerse.projectservice.project;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import io.archilab.projektboerse.projectservice.core.AbstractEntity;
 
+import io.archilab.projektboerse.projectservice.module.Module;
+
+import javax.persistence.CascadeType;
 import java.util.UUID;
 
 import javax.persistence.Basic;
@@ -10,7 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-
+import javax.persistence.ManyToMany;
 import org.hibernate.annotations.CreationTimestamp;
 
 import lombok.AccessLevel;
@@ -18,6 +21,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -35,20 +41,9 @@ public class Project extends AbstractEntity {
 
   @Setter
   private ProjectStatus status;
-  
-  @Basic
-  @Temporal(TemporalType.TIMESTAMP)
-  @CreationTimestamp
-  private java.util.Date created;
-  
-  @Setter
-  @Basic
-  @Temporal(TemporalType.TIMESTAMP)
-  @CreationTimestamp
-  private java.util.Date modified;
-  
-  @NotNull
-  private UUID creator;
+
+  @ManyToMany
+  private List<Module> modules = new ArrayList<>();
 
 
   public Project(ProjectName name, ProjectDescription description, ProjectStatus status) {
