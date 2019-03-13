@@ -38,6 +38,15 @@ public class ModuleClient {
   }
 
   public Collection<Module> getModules() {
+    List<Module> modules = new ArrayList<>();
+    modules.addAll(getFilteredModules("Master Thesis")); // All Master Modules
+    modules.addAll(getFilteredModules("Masterarbeit")); // All Master Modules
+    modules.addAll(getFilteredModules("Bachelor")); // All Bachelor Modules
+    modules.addAll(getFilteredModules("Praxisprojekt")); // All PP Modules
+    return modules;
+  }
+
+  public Collection<Module> getFilteredModules(String moduleName) {
     Traverson traverson = getTraversonInstance();
     if (traverson == null)
       return new ArrayList<>();
@@ -50,10 +59,14 @@ public class ModuleClient {
 
       while (!reachedLastPage) {
         Map<String, Object> params = new HashMap<>();
+        params.put("name", moduleName);
         params.put("page", currentPage);
 
         final PagedResources<Resource<Module>> pagedModuleResources = traverson
+                //.follow("modules")
                 .follow("modules")
+                .follow("search")
+                .follow("findByName_NameContainingIgnoreCase")
                 .withTemplateParameters(params)
                 .toObject(new TypeReferences.PagedResourcesType<Resource<Module>>(){});
 
@@ -66,6 +79,7 @@ public class ModuleClient {
         }
       }
     } catch (Exception e) {
+      e.printStackTrace();
       logger.error("Error retrieving modules");
     }
 
