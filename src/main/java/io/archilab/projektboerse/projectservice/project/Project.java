@@ -15,6 +15,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.persistence.ManyToMany;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -50,10 +51,11 @@ public class Project extends AbstractEntity {
   @CreationTimestamp
   private java.util.Date created;
 
-  @Setter
+  
   @Basic
   @Temporal(TemporalType.TIMESTAMP)
   @CreationTimestamp
+  @UpdateTimestamp
   private java.util.Date modified;
 
   @NotNull
