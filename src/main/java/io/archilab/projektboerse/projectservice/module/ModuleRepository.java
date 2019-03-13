@@ -4,6 +4,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.UUID;
 
-public interface ModuleRepository extends PagingAndSortingRepository<Module, UUID> {
+public interface ModuleRepository extends PagingAndSortingRepository<Module, ModuleID> {
 
 }

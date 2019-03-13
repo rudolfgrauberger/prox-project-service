@@ -11,7 +11,7 @@ public class ModuleService {
 
     private final Logger logger = LoggerFactory.getLogger(ModuleService.class);
 
-    private final ModuleClient moduleClient; // TODO use spring rest templates
+    private final ModuleClient moduleClient;
     private final ModuleRepository moduleRepository;
 
 
@@ -21,19 +21,15 @@ public class ModuleService {
     }
 
     public void importModules() {
+
         logger.info("Start importing modules");
 
-        try {
-            for (Module module : moduleClient.getModules()) {
-                this.moduleRepository.save(module);
-                logger.info("Imported Module: " + module.getId());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.info("Error importing modules");
-            return;
+        Collection<Module> modules = moduleClient.getModules();
+        for (Module module : modules) {
+            this.moduleRepository.save(module);
+            logger.info("Imported Module: " + module.getModuleID());
         }
 
-        logger.info("Finished importing modules: " + moduleRepository.count()); // TODO count = test
+        logger.info("Finished importing " + modules.size() + " modules");
     }
 }

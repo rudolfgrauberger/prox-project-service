@@ -13,6 +13,7 @@ import org.springframework.hateoas.mvc.TypeReferences;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 
+import java.net.ConnectException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.*;
@@ -21,50 +22,57 @@ import java.util.*;
 @Component
 public class ModuleClient {
 
+  private final Logger logger = LoggerFactory.getLogger(ModuleClient.class);
+
+
   @Value("${module.service.url}")
   private String moduleServiceURL;
 
 
   public ModuleClient() { }
 
-  public Collection<Module> getModules() {
-    Traverson traverson;
+  private Traverson getTraversonInstance() {
     try {
-      traverson = new Traverson(new URI(moduleServiceURL), MediaTypes.HAL_JSON);
+      return new Traverson(new URI(moduleServiceURL), MediaTypes.HAL_JSON);
     } catch (URISyntaxException e) {
+      logger.error("Could not init Traverson");
       e.printStackTrace();
-      return new ArrayList<>();
+      return null;
     }
+  }
+
+  public Collection<Module> getModules() {
+    Traverson traverson = getTraversonInstance();
+    if (traverson == null)
+      return new ArrayList<>();
 
     List<Module> modules = new ArrayList<>();
 
-    int currentPage = 0;
-    boolean reachedLastPage = false;
+    try {
+      int currentPage = 0;
+      boolean reachedLastPage = false;
 
-    while (!reachedLastPage) {
-      Map<String, Object> params = new HashMap<>();
-      params.put("page", currentPage);
+      while (!reachedLastPage) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("page", currentPage);
 
-      final PagedResources<Resource<Module>> pagedModuleResources = traverson
-              .follow("modules")
-              .withTemplateParameters(params)
-              .toObject(new TypeReferences.PagedResourcesType<Resource<Module>>(){});
+        final PagedResources<Resource<Module>> pagedModuleResources = traverson
+                .follow("modules")
+                .withTemplateParameters(params)
+                .toObject(new TypeReferences.PagedResourcesType<Resource<Module>>(){});
 
-      reachedLastPage = (++currentPage >= pagedModuleResources.getMetadata().getTotalPages());
+        reachedLastPage = (++currentPage >= pagedModuleResources.getMetadata().getTotalPages());
 
-      for (Resource<Module> moduleResource : pagedModuleResources.getContent()) {
-        Module module = moduleResource.getContent();
-        module.setId(extractUUIDFromSelfLink(moduleResource.getId())); // TODO better way of setting the id? it wont be set automatically because the module id is not exposed
-        modules.add(module);
+        for (Resource<Module> moduleResource : pagedModuleResources.getContent()) {
+          Module module = moduleResource.getContent();
+          module.setModuleID(new ModuleID(moduleResource.getId().getHref()));
+          modules.add(module);
+        }
       }
+    } catch (Exception e) {
+      logger.error("Error retrieving modules");
     }
 
     return modules;
-  }
-
-  private UUID extractUUIDFromSelfLink(Link selfLink) {
-    String selfRef = selfLink.getHref();
-    String uuid = selfRef.substring(selfRef.length() - 36);
-    return UUID.fromString(uuid);
   }
 }
