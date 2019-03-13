@@ -44,6 +44,20 @@ public class Project extends AbstractEntity {
 
   @ManyToMany
   private List<Module> modules = new ArrayList<>();
+  
+  @Basic
+  @Temporal(TemporalType.TIMESTAMP)
+  @CreationTimestamp
+  private java.util.Date created;
+
+  @Setter
+  @Basic
+  @Temporal(TemporalType.TIMESTAMP)
+  @CreationTimestamp
+  private java.util.Date modified;
+
+  @NotNull
+  private UUID creator;
 
 
   public Project(ProjectName name, ProjectDescription description, ProjectStatus status) {
