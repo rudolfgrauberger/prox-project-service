@@ -75,20 +75,24 @@ class KeyCon extends KeycloakWebSecurityConfigurerAdapter
         .sessionAuthenticationStrategy(sessionAuthenticationStrategy())
         .and()
         .authorizeRequests()
-        .antMatchers(HttpMethod.GET,"/projects*").permitAll()
-	    .antMatchers(HttpMethod.GET,"/projects/*").permitAll()
-	    .antMatchers(HttpMethod.GET,"/projects/**").permitAll()
-		.antMatchers("/projects*").hasRole("Dozent")
-		.antMatchers("/projects/*").hasRole("Dozent")
-		.antMatchers("/projects/**").hasRole("Dozent")
-		.antMatchers(HttpMethod.GET,"/modules*").permitAll()
-	    .antMatchers(HttpMethod.GET,"/modules/*").permitAll()
-	    .antMatchers(HttpMethod.GET,"/modules/**").permitAll()
-		.antMatchers("/modules*").hasRole("Dozent")
-		.antMatchers("/modules/*").hasRole("Dozent")
-		.antMatchers("/modules/**").hasRole("Dozent")
-		.antMatchers("/").permitAll()
-        .anyRequest().denyAll();
+//        .antMatchers(HttpMethod.GET,"/projects*").permitAll()
+//	    .antMatchers(HttpMethod.GET,"/projects/*").permitAll()
+//	    .antMatchers(HttpMethod.GET,"/projects/**").permitAll()
+//		.antMatchers("/projects*").hasRole("Dozent")
+//		.antMatchers("/projects/*").hasRole("Dozent")
+//		.antMatchers("/projects/**").hasRole("Dozent")
+//		.antMatchers(HttpMethod.GET,"/modules*").permitAll()
+//	    .antMatchers(HttpMethod.GET,"/modules/*").permitAll()
+//	    .antMatchers(HttpMethod.GET,"/modules/**").permitAll()
+//		.antMatchers("/modules*").hasRole("Dozent")
+//		.antMatchers("/modules/*").hasRole("Dozent")
+//		.antMatchers("/modules/**").hasRole("Dozent")
+//		.antMatchers("/").permitAll()
+//        .anyRequest().denyAll();
+	    .anyRequest().permitAll();
+	    
+	    
+	    
 	}
 	
 	
