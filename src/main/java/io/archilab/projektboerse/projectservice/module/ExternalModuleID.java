@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.Embeddable;
 import java.io.Serializable;
+import java.net.URL;
 
 @Embeddable
 @Data
@@ -15,8 +16,8 @@ public class ExternalModuleID implements Serializable {
     private String selfRef;
 
 
-    public ExternalModuleID(String selfRef) {
-        this.selfRef = selfRef;
+    public ExternalModuleID(URL selfRef) {
+        this.selfRef = selfRef.getFile();
     }
 
     public String toString() {

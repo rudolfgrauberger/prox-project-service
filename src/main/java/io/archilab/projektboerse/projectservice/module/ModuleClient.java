@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.*;
 
 
@@ -74,7 +75,7 @@ public class ModuleClient {
 
         for (Resource<Module> moduleResource : pagedModuleResources.getContent()) {
           Module module = moduleResource.getContent();
-          module.setExternalModuleID(new ExternalModuleID(moduleResource.getId().getHref()));
+          module.setExternalModuleID(new ExternalModuleID(new URL(moduleResource.getId().getHref())));
           modules.add(module);
         }
       }
