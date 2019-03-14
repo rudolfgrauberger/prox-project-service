@@ -53,7 +53,6 @@ public class Project extends AbstractEntity {
   @Column(updatable=false)
   @CreationTimestamp
   private java.util.Date created;
-
   
   @Basic
   @Temporal(TemporalType.TIMESTAMP)
