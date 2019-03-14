@@ -23,18 +23,5 @@ public class ProjectServiceApplicationTests
 	  @Test
 	  public void contextLoads() {
 	  }
-	  
-	  
-	  @Test
-	  public void data_test() 
-	  {
-		  Project pro = new Project(new ProjectName("n1"),new ProjectDescription("dfdfrgrdg"),ProjectStatus.LAUFEND);
-		  
-		  pro= repo.save(pro);
-		  System.out.println(pro);
-	  }
-
-
-
 }
 
