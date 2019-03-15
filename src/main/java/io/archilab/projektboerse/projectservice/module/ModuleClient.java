@@ -64,8 +64,6 @@ public class ModuleClient {
         params.put("page", currentPage);
 
         final PagedResources<Resource<Module>> pagedModuleResources = traverson
-                //.follow("modules")
-                .follow("modules")
                 .follow("search")
                 .follow("findByName_NameContainingIgnoreCase")
                 .withTemplateParameters(params)
