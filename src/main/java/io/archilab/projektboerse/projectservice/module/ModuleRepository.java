@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Optional;
 import java.util.UUID;
 
-@CrossOrigin // TODO only for development purposes
 @RepositoryRestResource(collectionResourceRel = "projectModules", path = "projectModules")
 public interface ModuleRepository extends PagingAndSortingRepository<Module, UUID> {
 
