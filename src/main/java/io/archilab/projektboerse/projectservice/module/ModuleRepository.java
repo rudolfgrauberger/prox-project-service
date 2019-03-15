@@ -10,7 +10,6 @@ import java.util.UUID;
 
 @RepositoryRestResource(collectionResourceRel = "projectModules", path = "projectModules")
 public interface ModuleRepository extends PagingAndSortingRepository<Module, UUID> {
-
     Optional<Module> findByExternalModuleID(ExternalModuleID externalModuleID);
 }
 
