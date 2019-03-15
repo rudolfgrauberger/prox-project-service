@@ -56,12 +56,14 @@ public class Project extends AbstractEntity {
   
   @Basic
   @Temporal(TemporalType.TIMESTAMP)
-//  @CreationTimestamp
   @UpdateTimestamp
   private java.util.Date modified;
 
   @NotNull
-  private UUID creator;
+  private UUID creatorID;
+
+  @NotNull
+  private String creatorName;
 
 
   public Project(ProjectName name, ProjectDescription description, ProjectStatus status) {
