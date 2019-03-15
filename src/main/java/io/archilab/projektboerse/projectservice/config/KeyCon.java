@@ -68,6 +68,7 @@ class KeyCon extends KeycloakWebSecurityConfigurerAdapter
 	    http
 	    .cors()
         .and()
+        // TODO vlt. in Zukunft csrf protection aktiveren, dann müsste im Client ein solches Token immer mitgeschickt werden
 	    .csrf()
         .disable()     
 	    
