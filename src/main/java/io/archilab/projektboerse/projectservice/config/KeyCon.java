@@ -84,6 +84,12 @@ class KeyCon extends KeycloakWebSecurityConfigurerAdapter
 		.antMatchers("/projects*").hasRole("Dozent")
 		.antMatchers("/projects/*").hasRole("Dozent")
 		.antMatchers("/projects/**").hasRole("Dozent")
+	 	.antMatchers(HttpMethod.GET,"/studyCourses*").permitAll()
+		.antMatchers(HttpMethod.GET,"/studyCourses/*").permitAll()
+		.antMatchers(HttpMethod.GET,"/studyCourses/**").permitAll()
+		.antMatchers("/studyCourses*").denyAll()
+		.antMatchers("/studyCourses/*").denyAll()
+		.antMatchers("/studyCourses/**").denyAll()
 		.antMatchers(HttpMethod.GET,"/modules*").permitAll()
 	    .antMatchers(HttpMethod.GET,"/modules/*").permitAll()
 	    .antMatchers(HttpMethod.GET,"/modules/**").permitAll()
@@ -94,8 +100,7 @@ class KeyCon extends KeycloakWebSecurityConfigurerAdapter
         .anyRequest().denyAll();
 //	    .anyRequest().permitAll();
 	    
-	    
-	    
+    
 	}
 	
 	
