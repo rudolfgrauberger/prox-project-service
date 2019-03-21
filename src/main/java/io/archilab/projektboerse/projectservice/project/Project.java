@@ -70,7 +70,6 @@ public class Project extends AbstractEntity {
   private String creatorName;
   
   
-  @Transient
   private String supervisorName;
   
 
