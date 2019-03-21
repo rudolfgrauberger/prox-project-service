@@ -16,8 +16,12 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.persistence.ManyToMany;
+import javax.persistence.PostLoad;
+import javax.persistence.PostPersist;
+
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.Transient;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -64,6 +68,17 @@ public class Project extends AbstractEntity {
 
   @NotNull
   private String creatorName;
+  
+  
+  @Transient
+  private String supervisorName;
+  
+
+  @PostPersist
+  public void populateField() {
+	  if(supervisorName==null)
+		  supervisorName=creatorName;
+  }
 
 
   public Project(ProjectName name, ProjectDescription description, ProjectStatus status) {
