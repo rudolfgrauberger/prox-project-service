@@ -69,15 +69,8 @@ public class Project extends AbstractEntity {
   @NotNull
   private String creatorName;
   
-  
+  @NotNull
   private String supervisorName;
-  
-
-  @PostPersist
-  public void populateField() {
-	  if(supervisorName==null)
-		  supervisorName=creatorName;
-  }
 
 
   public Project(ProjectName name, ProjectDescription description, ProjectStatus status) {
