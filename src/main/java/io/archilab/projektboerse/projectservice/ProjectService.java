@@ -25,16 +25,16 @@ public class ProjectService {
     context.getBean(ModuleService.class).importModules();
     
     
-    String ipAddress = "login.coalbase.io"; 
-    try {
-		sendPingRequest(ipAddress);
-	} catch (UnknownHostException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	} 
+//    String ipAddress = "login.coalbase.io"; 
+//    try {
+//		sendPingRequest(ipAddress);
+//	} catch (UnknownHostException e) {
+//		// TODO Auto-generated catch block
+//		e.printStackTrace();
+//	} catch (IOException e) {
+//		// TODO Auto-generated catch block
+//		e.printStackTrace();
+//	} 
   }
 
   
