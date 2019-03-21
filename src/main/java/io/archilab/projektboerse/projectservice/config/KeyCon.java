@@ -135,14 +135,50 @@ class KeyConDevelopment extends KeycloakWebSecurityConfigurerAdapter
 	protected void configure(HttpSecurity http) throws Exception
 	{
 		super.configure(http);
-		http
+		
+		
+	    http
+//	    .cors()
+//        .and()
+        // TODO vlt. in Zukunft csrf protection aktiveren, dann müsste im Client ein solches Token immer mitgeschickt werden
 	    .csrf()
         .disable()     
+	    
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // STATELESS
         .sessionAuthenticationStrategy(sessionAuthenticationStrategy())
         .and()
         .authorizeRequests()
-	    .anyRequest().permitAll();  
+        .antMatchers(HttpMethod.GET,"/projects*").permitAll()
+	    .antMatchers(HttpMethod.GET,"/projects/*").permitAll()
+	    .antMatchers(HttpMethod.GET,"/projects/**").permitAll()
+		.antMatchers("/projects*").hasRole("Dozent")
+		.antMatchers("/projects/*").hasRole("Dozent")
+		.antMatchers("/projects/**").hasRole("Dozent")
+	 	.antMatchers(HttpMethod.GET,"/projectStudyCourses*").permitAll()
+		.antMatchers(HttpMethod.GET,"/projectStudyCourses/*").permitAll()
+		.antMatchers(HttpMethod.GET,"/projectStudyCourses/**").permitAll()
+		.antMatchers("/projectStudyCourses*").denyAll()
+		.antMatchers("/projectStudyCourses/*").denyAll()
+		.antMatchers("/projectStudyCourses/**").denyAll()
+		.antMatchers(HttpMethod.GET,"/projectModules*").permitAll()
+	    .antMatchers(HttpMethod.GET,"/projectModules/*").permitAll()
+	    .antMatchers(HttpMethod.GET,"/projectModules/**").permitAll()
+		.antMatchers("/projectModules*").denyAll()
+		.antMatchers("/projectModules/*").denyAll()
+		.antMatchers("/projectModules/**").denyAll()
+		.antMatchers("/").permitAll()
+        .anyRequest().denyAll();
+//	    .anyRequest().permitAll();
+	    
+		
+//		http
+//	    .csrf()
+//        .disable()     
+//        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // STATELESS
+//        .sessionAuthenticationStrategy(sessionAuthenticationStrategy())
+//        .and()
+//        .authorizeRequests()
+//	    .anyRequest().permitAll();  
 	}
 
 	@Autowired
