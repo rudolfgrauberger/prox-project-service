@@ -68,8 +68,8 @@ class KeyCon extends KeycloakWebSecurityConfigurerAdapter
 		super.configure(http);
 		
 	    http
-//	    .cors()
-//        .and()
+	    .cors()
+        .and()
         // TODO vlt. in Zukunft csrf protection aktiveren, dann müsste im Client ein solches Token immer mitgeschickt werden
 	    .csrf()
         .disable()     
@@ -136,49 +136,15 @@ class KeyConDevelopment extends KeycloakWebSecurityConfigurerAdapter
 	{
 		super.configure(http);
 		
-		
-	    http
-//	    .cors()
-//        .and()
-        // TODO vlt. in Zukunft csrf protection aktiveren, dann müsste im Client ein solches Token immer mitgeschickt werden
+
+		http
 	    .csrf()
         .disable()     
-	    
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // STATELESS
         .sessionAuthenticationStrategy(sessionAuthenticationStrategy())
         .and()
         .authorizeRequests()
-        .antMatchers(HttpMethod.GET,"/projects*").permitAll()
-	    .antMatchers(HttpMethod.GET,"/projects/*").permitAll()
-	    .antMatchers(HttpMethod.GET,"/projects/**").permitAll()
-		.antMatchers("/projects*").hasRole("Dozent")
-		.antMatchers("/projects/*").hasRole("Dozent")
-		.antMatchers("/projects/**").hasRole("Dozent")
-	 	.antMatchers(HttpMethod.GET,"/projectStudyCourses*").permitAll()
-		.antMatchers(HttpMethod.GET,"/projectStudyCourses/*").permitAll()
-		.antMatchers(HttpMethod.GET,"/projectStudyCourses/**").permitAll()
-		.antMatchers("/projectStudyCourses*").denyAll()
-		.antMatchers("/projectStudyCourses/*").denyAll()
-		.antMatchers("/projectStudyCourses/**").denyAll()
-		.antMatchers(HttpMethod.GET,"/projectModules*").permitAll()
-	    .antMatchers(HttpMethod.GET,"/projectModules/*").permitAll()
-	    .antMatchers(HttpMethod.GET,"/projectModules/**").permitAll()
-		.antMatchers("/projectModules*").denyAll()
-		.antMatchers("/projectModules/*").denyAll()
-		.antMatchers("/projectModules/**").denyAll()
-		.antMatchers("/").permitAll()
-        .anyRequest().denyAll();
-//	    .anyRequest().permitAll();
-	    
-		
-//		http
-//	    .csrf()
-//        .disable()     
-//        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // STATELESS
-//        .sessionAuthenticationStrategy(sessionAuthenticationStrategy())
-//        .and()
-//        .authorizeRequests()
-//	    .anyRequest().permitAll();  
+	    .anyRequest().permitAll();  
 	}
 
 	@Autowired
