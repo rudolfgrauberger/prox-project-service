@@ -11,8 +11,5 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 public interface ProjectRepository extends PagingAndSortingRepository<Project, UUID> {
 
   Set<Project> findByStatus(ProjectStatus status);
-  List<Project> findByCreatorName(@Param(value="creatorName") String creatorName);
-  
-  // save, saveAll    delete, deleteAll, deleteAll, deleteById,
-
+  Set<Project> findBySupervisorNameContaining(@Param(value="supervisorName") String supervisorName);
 }
