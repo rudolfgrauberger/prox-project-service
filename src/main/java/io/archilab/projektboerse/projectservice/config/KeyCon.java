@@ -68,8 +68,8 @@ class KeyCon extends KeycloakWebSecurityConfigurerAdapter
 		super.configure(http);
 		
 	    http
-	    .cors()
-        .and()
+//	    .cors()
+//        .and()
         // TODO vlt. in Zukunft csrf protection aktiveren, dann müsste im Client ein solches Token immer mitgeschickt werden
 	    .csrf()
         .disable()     
@@ -144,7 +144,7 @@ class KeyConDevelopment extends KeycloakWebSecurityConfigurerAdapter
         .sessionAuthenticationStrategy(sessionAuthenticationStrategy())
         .and()
         .authorizeRequests()
-	    .anyRequest().permitAll();  
+	    .anyRequest().hasRole("Dozent"); //.permitAll();  
 	}
 
 	@Autowired
