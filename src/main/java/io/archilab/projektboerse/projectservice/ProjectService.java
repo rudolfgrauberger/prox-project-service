@@ -29,7 +29,19 @@ public class ProjectService {
   public static void main(String[] args) {
 	  
 	  
+	
 	  
+	  
+	  
+	  
+    ConfigurableApplicationContext context = SpringApplication.run(ProjectService.class, args);
+
+    context.getBean(ModuleService.class).importModules();
+    
+    
+    
+    
+    
 	  CloseableHttpClient client = HttpClients.createDefault();
 	    HttpPost httpPost = new HttpPost("https://login.coalbase.io/auth/realms/prox/protocol/openid-connect/token");
 
@@ -82,13 +94,6 @@ public class ProjectService {
 		}
 
 	   
-	  
-	  
-	  
-	  
-    ConfigurableApplicationContext context = SpringApplication.run(ProjectService.class, args);
-
-    context.getBean(ModuleService.class).importModules();
     
     
 //    String ipAddress = "login.coalbase.io"; 
