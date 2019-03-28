@@ -7,7 +7,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
-//@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RepositoryRestResource(collectionResourceRel = "projectStudyCourses", path = "projectStudyCourses")
 public interface StudyCourseRepository extends PagingAndSortingRepository<StudyCourse, UUID> {
 

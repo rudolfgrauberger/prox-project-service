@@ -181,5 +181,4 @@ class KeyConDevelopment extends KeycloakWebSecurityConfigurerAdapter
 	}
 	
 }
-	
 
