@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+    project-db:
+      image: postgres:11.2-alpine
+      ports:
+        - 5432:5432
+      restart: always
+      environment:
+        - POSTGRES_USER=project-service
+        - POSTGRES_PASSWORD=project-service
+        - POSTGRES_DB=project-db
+        - PGDATA=/var/lib/postgresql/data/pgdata
