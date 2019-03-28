@@ -238,5 +238,3 @@ class KeyConDbMigration extends KeycloakWebSecurityConfigurerAdapter
 
 }
 
-
-
