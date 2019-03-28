@@ -38,44 +38,54 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Project extends AbstractEntity {
 
-  @Setter
-  @JsonUnwrapped
-  private ProjectName name;
+    @Setter
+    @JsonUnwrapped
+    private ProjectName name;
 
-  @Setter
-  @JsonUnwrapped
-  private ProjectDescription description;
+    @Setter
+    @JsonUnwrapped
+    private ProjectDescription description;
 
-  @Setter
-  private ProjectStatus status;
+    @Setter
+    private ProjectStatus status;
 
-  @ManyToMany
-  private List<Module> modules = new ArrayList<>();
-  
-  @Basic
-  @Temporal(TemporalType.TIMESTAMP)
-  @Column(updatable=false)
-  @CreationTimestamp
-  private java.util.Date created;
-  
-  @Basic
-  @Temporal(TemporalType.TIMESTAMP)
-  @UpdateTimestamp
-  private java.util.Date modified;
+    @NotNull
+    @Setter
+    @JsonUnwrapped
+    private CreatorID creatorID;
 
-  @NotNull
-  private UUID creatorID;
+    @NotNull
+    @Setter
+    @JsonUnwrapped
+    private CreatorName creatorName;
 
-  @NotNull
-  private String creatorName;
-  
-  @NotNull
-  private String supervisorName;
+    @NotNull
+    @Setter
+    @JsonUnwrapped
+    private SupervisorName supervisorName;
+
+    @ManyToMany
+    private List<Module> modules = new ArrayList<>();
+
+    @Basic
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(updatable=false)
+    @CreationTimestamp
+    private java.util.Date created;
+
+    @Basic
+    @Temporal(TemporalType.TIMESTAMP)
+    @UpdateTimestamp
+    private java.util.Date modified;
 
 
-  public Project(ProjectName name, ProjectDescription description, ProjectStatus status) {
-    this.name = name;
-    this.description = description;
-    this.status = status;
-  }
+    public Project(ProjectName name, ProjectDescription description, ProjectStatus status, @NotNull CreatorID creatorID, @NotNull CreatorName creatorName, @NotNull SupervisorName supervisorName, List<Module> modules) {
+        this.name = name;
+        this.description = description;
+        this.status = status;
+        this.creatorID = creatorID;
+        this.creatorName = creatorName;
+        this.supervisorName = supervisorName;
+        this.modules = modules;
+    }
 }
