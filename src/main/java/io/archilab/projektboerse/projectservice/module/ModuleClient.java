@@ -43,16 +43,13 @@ public class ModuleClient {
   private final StudyCourseRepository studyCourseRepository;
 
 
-
   public ModuleClient(StudyCourseRepository studyCourseRepository) {
-	  
-
       this.studyCourseRepository = studyCourseRepository;
   }
 
-  private Traverson getTraversonInstance() {
+  private Traverson getTraversonInstance(String url) {
     try {
-      return new Traverson(new URI(moduleServiceURL), MediaTypes.HAL_JSON);
+      return new Traverson(new URI(url), MediaTypes.HAL_JSON);
     } catch (URISyntaxException e) {
       logger.error("Could not init Traverson");
       e.printStackTrace();
@@ -71,7 +68,7 @@ public class ModuleClient {
   }
 
   public Collection<Module> getFilteredModules(String moduleName) {
-    Traverson traverson = getTraversonInstance();
+    Traverson traverson = getTraversonInstance(moduleServiceURL);
     if (traverson == null)
       return new ArrayList<>();
 
@@ -98,46 +95,21 @@ public class ModuleClient {
           Module module = moduleResource.getContent();
           Link studyCoursesLink = moduleResource.getLink("studyCourses");
           logger.info("LINKS");
-         
-          Traverson tr2=null;
-          try {
-        	  tr2 =  new Traverson(new URI(studyCoursesLink.getHref()), MediaTypes.HAL_JSON);
-            } catch (URISyntaxException e) {
-              logger.error("Could not init Traverson");
-              e.printStackTrace();
-              return null;
-            }
+
+          Traverson studyCourseTraverson = getTraversonInstance(studyCoursesLink.getHref());
+          if (traverson == null)
+            return new ArrayList<>();
           
-          final PagedResources<Resource<StudyCourse>> pm2 = tr2
+          final PagedResources<Resource<StudyCourse>> pagedStudyCourseResources = studyCourseTraverson
                   .follow("self")
                   .toObject(new TypeReferences.PagedResourcesType<Resource<StudyCourse>>(){});
           
-          for (Resource<StudyCourse> studyCourse : pm2.getContent()) {
+          for (Resource<StudyCourse> studyCourse : pagedStudyCourseResources.getContent()) {
         	  StudyCourse sc = studyCourse.getContent();
         	  sc.setExternalStudyCourseID(new ExternalStudyCourseID(new URL(studyCourse.getId().getHref())));
         	  logger.info(sc.getExternalStudyCourseID().toString());
         	  module.getStudyCourses().add(sc);
           }
-       
-//        	  List<Resource<StudyCourse>> sclis = restTemplate().exchange(
-//        			  studyCoursesLink.getHref().toString(),
-//      		        HttpMethod.GET, null,
-//      		        new ParameterizedTypeReference<List<Resource<StudyCourse>>>() {}).getBody();
-//        	  
-//        	  for(Resource sc: sclis)
-//        	  {
-//        		  
-//        		  logger.info("link "+ sc.getLinks());
-//        		  logger.info(new ExternalStudyCourseID(new URL(sc.getId().getHref())).toString());
-//        	  }
-//      		        
-//           	  Collection<StudyCourse> studentCourses = restTemplate().exchange(
-//        		        link.getHref().toString(),
-//        		        HttpMethod.GET, null,
-//        		        new ParameterizedTypeReference<Resources<StudyCourse>>() {})
-//        		        .getBody().getContent();
-
-          
           
           module.setExternalModuleID(new ExternalModuleID(new URL(moduleResource.getId().getHref())));
           modules.add(module);
@@ -149,18 +121,4 @@ public class ModuleClient {
     }
     return modules;
   }
-  
-  RestTemplate restTemplate() {
-	    ObjectMapper objectMapper = new ObjectMapper();
-	    objectMapper.registerModule(new Jackson2HalModule());
-	    objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-	    objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
-	    MappingJackson2HttpMessageConverter messageConverter =
-	            new MappingJackson2HttpMessageConverter();
-	    messageConverter.setObjectMapper(objectMapper);
-	    messageConverter.setSupportedMediaTypes(Arrays.asList(MediaTypes.HAL_JSON,MediaType.APPLICATION_JSON, MediaType.APPLICATION_OCTET_STREAM));
-
-	    return new RestTemplate(Arrays.asList(messageConverter));
-	}
-
 }

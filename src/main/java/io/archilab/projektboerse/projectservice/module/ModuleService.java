@@ -4,6 +4,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.SmartInitializingSingleton;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,11 +29,8 @@ public class ModuleService {
 
         this.studyCourseRepository = studyCourseRepository;
     }
-    
-    public void importModules() {
-    	
-    	
 
+    public void importModules() {
         logger.info("Start importing modules");
 
         Collection<Module> modules = moduleClient.getModules();
@@ -90,28 +90,14 @@ public class ModuleService {
         		temp_set.addAll(temp.getModules());
         		temp_set.add(repo_module);
         		temp.setModules(temp_set);
-//        		temp.getModules().add(repo_module);
         		this.studyCourseRepository.save(temp);
         	}
         	this.moduleRepository.save(repo_module);
         	
         	
         	Module repo_module22=this.moduleRepository.findByExternalModuleID(module.getExternalModuleID()).get();
-        	logger.info(repo_module22.getStudyCourses().toString());
 
-        	
-//            Optional<Module> existingModuleOptional = this.moduleRepository.findByExternalModuleID(module.getExternalModuleID());
-//            if (existingModuleOptional.isPresent()) {
-//                logger.info("Module with ID " + module.getExternalModuleID() + " already exists.");
-//                Module existingModule = existingModuleOptional.get();
-//                existingModule.setName(module.getName());
-//                this.moduleRepository.save(existingModule);
-//            } else {
-//                logger.info("Module with ID " + module.getExternalModuleID() + " does not exist yet.");
-//                this.moduleRepository.save(module);
-//                
-//            }
-            
+        	logger.info(repo_module22.getStudyCourses().toString());
             logger.info("Imported Module: " + module.getExternalModuleID());
         }
 
