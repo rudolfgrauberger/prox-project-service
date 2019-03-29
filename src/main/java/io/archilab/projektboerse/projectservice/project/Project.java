@@ -49,6 +49,23 @@ public class Project extends AbstractEntity {
   @Setter
   private ProjectStatus status;
 
+    @NotNull
+    @Setter
+    @JsonUnwrapped
+    private CreatorID creatorID;
+
+    @NotNull
+    @Setter
+    @JsonUnwrapped
+    private CreatorName creatorName;
+
+    @NotNull
+    @Setter
+    @JsonUnwrapped
+    private SupervisorName supervisorName;
+
+
+
   @Getter
   @ManyToMany
   private List<Module> modules = new ArrayList<>();
@@ -64,22 +81,14 @@ public class Project extends AbstractEntity {
   @UpdateTimestamp
   private java.util.Date modified;
 
-  @Setter
-  @NotNull
-  private UUID creatorID;
 
-  @Setter
-  @NotNull
-  private String creatorName;
-  
-  @Setter
-  @NotNull
-  private String supervisorName;
-
-
-  public Project(ProjectName name, ProjectDescription description, ProjectStatus status) {
-    this.name = name;
-    this.description = description;
-    this.status = status;
-  }
+public Project(ProjectName name, ProjectDescription description, ProjectStatus status, @NotNull CreatorID creatorID, @NotNull CreatorName creatorName, @NotNull SupervisorName supervisorName, List<Module> modules) {
+        this.name = name;
+        this.description = description;
+        this.status = status;
+        this.creatorID = creatorID;
+        this.creatorName = creatorName;
+        this.supervisorName = supervisorName;
+        this.modules = modules;
+    }
 }
