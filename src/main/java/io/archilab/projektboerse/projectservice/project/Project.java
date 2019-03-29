@@ -49,6 +49,7 @@ public class Project extends AbstractEntity {
   @Setter
   private ProjectStatus status;
 
+  @Getter
   @ManyToMany
   private List<Module> modules = new ArrayList<>();
   
@@ -63,12 +64,15 @@ public class Project extends AbstractEntity {
   @UpdateTimestamp
   private java.util.Date modified;
 
+  @Setter
   @NotNull
   private UUID creatorID;
 
+  @Setter
   @NotNull
   private String creatorName;
   
+  @Setter
   @NotNull
   private String supervisorName;
 
