@@ -27,15 +27,9 @@ public class Module extends AbstractEntity {
 
   @JsonUnwrapped
   private ModuleName name;
-  
-  @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},     mappedBy = "modules")
-  private Set<StudyCourse> studyCourses = new HashSet<>();
 
 
   public Module(ModuleName name) {
     this.name = name;
   }
 }
-
-
-//

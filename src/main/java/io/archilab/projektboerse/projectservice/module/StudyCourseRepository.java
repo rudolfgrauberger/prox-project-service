@@ -13,5 +13,4 @@ public interface StudyCourseRepository extends PagingAndSortingRepository<StudyC
   List<StudyCourse> findByAcademicDegree(AcademicDegree academicDegree);
   
   Optional<StudyCourse> findByExternalStudyCourseID(ExternalStudyCourseID externalStudyCourseID);
-
 }

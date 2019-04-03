@@ -3,9 +3,8 @@ package io.archilab.projektboerse.projectservice.module;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import io.archilab.projektboerse.projectservice.core.AbstractEntity;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+
+import java.util.*;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinTable;
@@ -35,7 +34,6 @@ public class StudyCourse extends AbstractEntity {
   @JsonIgnore
   private ExternalStudyCourseID externalStudyCourseID;
 
-
   @Setter
   @JsonUnwrapped
   private StudyCourseName name;
@@ -43,12 +41,8 @@ public class StudyCourse extends AbstractEntity {
   @Setter
   private AcademicDegree academicDegree;
 
-  @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-  @JoinTable(
-		  name = "module_courses",
-		  joinColumns = { @JoinColumn(name = "study_course_id", referencedColumnName = "id") },
-		  inverseJoinColumns = { @JoinColumn(name = "module_id", referencedColumnName = "id") } )
-  private Set<Module> modules = new HashSet<>();
+  @OneToMany
+  private List<Module> modules = new ArrayList<>();
 
   @OneToMany(mappedBy = "parentStudyCourse", cascade = CascadeType.ALL, orphanRemoval = true)
   private Set<StudyCourse> studyDirections = new HashSet<>();
@@ -65,8 +59,8 @@ public class StudyCourse extends AbstractEntity {
     return Collections.unmodifiableSet(this.studyDirections);
   }
 
-  public Set<Module> getModules() {
-    return Collections.unmodifiableSet(this.modules);
+  public List<Module> getModules() {
+    return Collections.unmodifiableList(this.modules);
   }
 
   public void addModule(Module module) {
