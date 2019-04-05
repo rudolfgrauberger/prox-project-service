@@ -57,7 +57,6 @@ public class StudyCourseService {
                 StudyCourse existingStudyCourse = existingStudyCourseOptional.get();
                 existingStudyCourse.setName(studyCourse.getName());
                 existingStudyCourse.setAcademicDegree(studyCourse.getAcademicDegree());
-                existingStudyCourse.setStudyDirections(studyCourse.getStudyDirections());
                 existingStudyCourse.setModules(newModules);
                 this.studyCourseRepository.save(existingStudyCourse);
 

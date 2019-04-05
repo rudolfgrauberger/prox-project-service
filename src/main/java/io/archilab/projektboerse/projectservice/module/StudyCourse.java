@@ -44,19 +44,10 @@ public class StudyCourse extends AbstractEntity {
   @OneToMany
   private List<Module> modules = new ArrayList<>();
 
-  @OneToMany(mappedBy = "parentStudyCourse", cascade = CascadeType.ALL, orphanRemoval = true)
-  private Set<StudyCourse> studyDirections = new HashSet<>();
-
-  @ManyToOne
-  private StudyCourse parentStudyCourse;
 
   public StudyCourse(StudyCourseName name, AcademicDegree academicDegree) {
     this.name = name;
     this.academicDegree = academicDegree;
-  }
-
-  public Set<StudyCourse> getStudyDirections() {
-    return Collections.unmodifiableSet(this.studyDirections);
   }
 
   public List<Module> getModules() {
@@ -70,35 +61,4 @@ public class StudyCourse extends AbstractEntity {
   public void removeModule(Module module) {
     this.modules.remove(module);
   }
-
-  public void addStudyDirection(StudyCourse studyDirection) {
-    if (studyDirection.getParentStudyCourse() != null) {
-      throw new RuntimeException("A study direction must only have one parent!");
-    }
-    if (this.academicDegree != studyDirection.getAcademicDegree()) {
-      throw new RuntimeException(
-          "A study direction must have the same academic degree as the corresponding study course!");
-    }
-    this.studyDirections.add(studyDirection);
-    studyDirection.setParentStudyCourse(this);
-  }
-
-  public void removeStudyDirection(StudyCourse studyDirection) {
-    this.studyDirections.remove(studyDirection);
-    studyDirection.setParentStudyCourse(null);
-  }
-
-  private void setParentStudyCourse(StudyCourse parentStudyCourse) {
-    if (parentStudyCourse != null) {
-      if (!this.studyDirections.isEmpty()) {
-        throw new RuntimeException("A study direction must not have study directions!");
-      }
-      if (this.academicDegree != parentStudyCourse.academicDegree) {
-        throw new RuntimeException(
-            "A study direction must have the same academic degree as the corresponding study course!");
-      }
-    }
-    this.parentStudyCourse = parentStudyCourse;
-  }
-
 }

@@ -54,9 +54,6 @@ public class DatabaseTest {
     Module bi = new Module(new ModuleName("Business Intelligence"));
     Module eam = new Module(new ModuleName("Enterprise Architecture Management"));
 
-    computerScience.addStudyDirection(softwareEngineering);
-    computerScience.addStudyDirection(informationSystems);
-
     softwareEngineering.addModule(am);
     softwareEngineering.addModule(fae);
 
@@ -68,14 +65,6 @@ public class DatabaseTest {
     assertThat(this.studyCourseRepository.findAll())
         .contains(computerScience, softwareEngineering, informationSystems);
     assertThat(this.moduleRepository.findAll()).contains(am, fae, bi, eam);
-    assertThat(
-        this.studyCourseRepository.findById(computerScience.getId()).get().getStudyDirections())
-        .contains(softwareEngineering, informationSystems);
-    assertThat(this.studyCourseRepository.findById(softwareEngineering.getId()).get()
-        .getParentStudyCourse()).isEqualTo(computerScience);
-    assertThat(this.studyCourseRepository.findById(informationSystems.getId()).get()
-        .getParentStudyCourse()).isEqualTo(computerScience);
-    
     
     ArrayList<Module> modules = new ArrayList<Module>();
     modules.add(am);
@@ -93,10 +82,6 @@ public class DatabaseTest {
     projectRepository.save(p1);
     projectRepository.save(p2);
     projectRepository.save(p3);
-    
-   // projectRepository.findAll().
-    
-    
   }
 
 }
