@@ -14,7 +14,6 @@ import lombok.Setter;
 public class AbstractEntity {
 
   @Id
-  @JsonIgnore
   private UUID id;
 
   protected AbstractEntity() {
