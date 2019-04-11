@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import lombok.var;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,17 +43,19 @@ public class DatabaseTest {
 
   @Test
   public void creation() {
-    StudyCourse computerScience = new StudyCourse(new StudyCourseName("Computer Science"),
-        AcademicDegree.MASTER);
-    StudyCourse softwareEngineering = new StudyCourse(new StudyCourseName("Software Engineering"),
-        AcademicDegree.MASTER);
-    StudyCourse informationSystems = new StudyCourse(new StudyCourseName("Information Systems"),
-        AcademicDegree.MASTER);
+    StudyCourse computerScience = new StudyCourse(new StudyCourseName("Computer Science"), AcademicDegree.MASTER);
+    StudyCourse softwareEngineering = new StudyCourse(new StudyCourseName("Software Engineering"), AcademicDegree.MASTER);
+    StudyCourse informationSystems = new StudyCourse(new StudyCourseName("Information Systems"), AcademicDegree.MASTER);
    
     Module am = new Module(new ModuleName("Anforderungsmanagement"));
     Module fae = new Module(new ModuleName("Fachspezifischer Architekturentwurf"));
     Module bi = new Module(new ModuleName("Business Intelligence"));
     Module eam = new Module(new ModuleName("Enterprise Architecture Management"));
+
+    this.moduleRepository.save(am);
+    this.moduleRepository.save(fae);
+    this.moduleRepository.save(bi);
+    this.moduleRepository.save(eam);
 
     softwareEngineering.addModule(am);
     softwareEngineering.addModule(fae);
@@ -61,6 +64,8 @@ public class DatabaseTest {
     informationSystems.addModule(eam);
 
     this.studyCourseRepository.save(computerScience);
+    this.studyCourseRepository.save(softwareEngineering);
+    this.studyCourseRepository.save(informationSystems);
 
     assertThat(this.studyCourseRepository.findAll())
         .contains(computerScience, softwareEngineering, informationSystems);
