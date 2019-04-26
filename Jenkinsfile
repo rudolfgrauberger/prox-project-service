@@ -12,7 +12,7 @@ pipeline {
     stages {
         stage("Build") {
             steps {
-                sh "mvn clean install" // Führt den Maven build aus
+                sh "mvn clean verify" // Führt den Maven build aus
 		sh "ls -ls"
             }
         }
