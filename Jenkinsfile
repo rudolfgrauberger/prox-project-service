@@ -40,13 +40,12 @@ pipeline {
             }
             steps {
 		sh "cat /etc/hosts"
-                /*sh "scp -P ${SERVERPORT} -v ${IMAGE}.tar ${SSHUSER}@${SERVERNAME}:~/"     // Kopiert per ssh die tar Datei auf dem Produktionsserver
-                sh "scp -P ${SERVERPORT} -v ${YMLFILENAME} ${SSHUSER}@${SERVERNAME}:/srv/projektboerse/"
-                sh "ssh -p ${SERVERPORT} ${SSHUSER}@${SERVERNAME} " +
-                        "'docker image load -i ${IMAGE}.tar; " +
-                        /*"docker network inspect ptb &> /dev/null || docker network create ptb; " + */ // when connecting to other services, enable this
-                        "docker-compose -p ptb -f /srv/projektboerse/${YMLFILENAME} up -d'"
-		    */
+                //sh "scp -P ${SERVERPORT} -v ${IMAGE}.tar ${SSHUSER}@${SERVERNAME}:~/"     // Kopiert per ssh die tar Datei auf dem Produktionsserver
+                //sh "scp -P ${SERVERPORT} -v ${YMLFILENAME} ${SSHUSER}@${SERVERNAME}:/srv/projektboerse/"
+                //sh "ssh -p ${SERVERPORT} ${SSHUSER}@${SERVERNAME} " +
+                //        "'docker image load -i ${IMAGE}.tar; " +
+                //        /*"docker network inspect ptb &> /dev/null || docker network create ptb; " + */ // when connecting to other services, enable this
+                //        "docker-compose -p ptb -f /srv/projektboerse/${YMLFILENAME} up -d'"
             }
         }
     }
