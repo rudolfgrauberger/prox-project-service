@@ -19,7 +19,8 @@
     <java.version>1.8</java.version>
     <spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
     <dockerfile-maven.version>1.4.10</dockerfile-maven.version>
-   <docker.image.prefix>ptb-gp-ss2019.archi-lab.io</docker.image.prefix>
+    <docker.image.prefix>ptb-gp-ss2019.archi-lab.io</docker.image.prefix>
+    <docker.save.file>${project.name}.tar</docker.save.file>
     <keycloak.version>5.0.0</keycloak.version>
   </properties>
 
@@ -144,6 +145,7 @@
             <phase>install</phase>
             <goals>
               <goal>build</goal>
+              <goal>save</goal>
               <!--<goal>push</goal>-->
             </goals>
           </execution>
