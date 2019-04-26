@@ -13,7 +13,7 @@ pipeline {
         stage("Build") {
             steps {
                 sh "mvn clean install" // Führt den Maven build aus
-                sh "docker image save -o ${IMAGE}.tar ${REPOSITORY}/${IMAGE}" // Docker image als tar Datei speichern
+		sh "ls -ls"
             }
         }
         stage('SonarQube Analysis') {
