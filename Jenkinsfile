@@ -5,10 +5,6 @@ pipeline {
             args '-v maven-data:/root/.m2'
         }
     }
-    environment {
-        REPOSITORY = "ptb-gp-ss2019.archi-lab.io"
-        IMAGE = "project-service"
-    }
     stages {
         stage("Build") {
             steps {
