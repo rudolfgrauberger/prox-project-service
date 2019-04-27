@@ -9,7 +9,6 @@ pipeline {
         stage("Build") {
             steps {
                 sh "mvn clean compile"
-		sh "ls -ls"
             }
         }
         stage('SonarQube Analysis') {
