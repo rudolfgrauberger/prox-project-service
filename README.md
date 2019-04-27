@@ -2,10 +2,19 @@
 The purpose of this service is to provide a backend for projects of the "Projekt- und Themenbörse (PTB)" web application of TH Köln.
 
 ## Installation
+``` bash
+mvn clean package
 ```
-mvn clean install
+Executes the [Maven default lifecycle](https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html) up to the package phase. During `package` phase a runnable JAR is created and a docker image is build.
+
+### Deploy
+If you wan't to deploy this version to the private nexus docker registry use the `deploy` phase.
+
+``` bash
+mvn -Dmaven.deploy.skip=true deploy
 ```
-Executes the [Maven default lifecycle](https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html) up to the install phase. During package phase a runnable JAR is created and during install phase a docker image is build.
+
+`-Dmaven.deploy.skip=true` ensures that the default behavior of the maven deploy phase is not executed. However, the attached maven plugin to this phase still execute and pushes the image to the private docker repository.
 
 ## Usage
 ```
