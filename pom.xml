@@ -164,24 +164,14 @@
         <executions>
           <execution>
             <id>default</id>
-            <phase>package</phase>
+            <phase>install</phase>
             <goals>
               <goal>build</goal>
             </goals>
           </execution>
           <execution>
-            <id>tag-latest</id>
-            <phase>package</phase>
-            <goals>
-              <goal>tag</goal>
-            </goals>
-            <configuration>
-              <tag>latest</tag>
-            </configuration>
-          </execution>
-          <execution>
             <id>tag-version</id>
-            <phase>package</phase>
+            <phase>install</phase>
             <goals>
               <goal>tag</goal>
             </goals>

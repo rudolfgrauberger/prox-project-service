@@ -9,12 +9,11 @@ pipeline {
         stage("Build") {
             steps {
                 sh "mvn clean compile"
-		sh "ls -ls"
             }
         }
         stage('SonarQube Analysis') {
             steps {
-		echo "SonarQube..."
+                echo "SonarQube..."
             }
         }
         stage("Test") {

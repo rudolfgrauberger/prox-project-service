@@ -3,11 +3,11 @@ The purpose of this service is to provide a backend for projects of the "Projekt
 
 ## Installation
 ``` bash
-mvn clean package
+mvn clean install
 ```
 Executes the [Maven default lifecycle](https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html) up to the package phase. During `package` phase a runnable JAR is created and a docker image is build.
 
-### Deploy
+### Deploy (from your local system)
 To push the image to our own docker registry, you have to define a server with the id `docker.nexus.archi-lab.io` with your username and password for authentication in the [maven settings.xml](https://maven.apache.org/guides/mini/guide-configuring-maven.html#Security_and_Deployment_Settings).
 
 ``` xml
