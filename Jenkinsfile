@@ -5,9 +5,6 @@ pipeline {
             args '-v maven-data:/root/.m2'
         }
     }
-    environment {
-        NEXUS_CREDS     = credentials('nexus-archilab')
-    }
     stages {
         stage("Build") {
             steps {
@@ -31,6 +28,9 @@ pipeline {
             }
         }
         stage("Deploy") {
+            environment {
+                NEXUS_CREDS     = credentials('nexus-archilab')
+            }
             steps {
                 sh "mvn -Dmaven.test.skip=true -Dmaven.install.skip=true -Dmaven.deploy.skip=true deploy"
             }
