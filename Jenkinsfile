@@ -32,6 +32,7 @@ pipeline {
                 NEXUS_CREDS     = credentials('nexus-archilab')
             }
             steps {
+                sh 'printenv'
                 sh "mvn -Dmaven.test.skip=true -Dmaven.install.skip=true -Dmaven.deploy.skip=true deploy"
             }
         }
