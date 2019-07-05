@@ -7,8 +7,6 @@ pipeline {
     }
     environment {
         NEXUS_CREDS     = credentials('nexus-archilab')
-        NEXUS_USERNAME  = "$NEXUS_CREDS_USR"
-        NEXUS_PASSWORD  = "balal"
     }
     stages {
         stage("Build") {
